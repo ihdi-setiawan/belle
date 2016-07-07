@@ -67,6 +67,7 @@ class CustomStorage implements
             'jti_table'  => 'oauth_jti',
             'scope_table'  => 'oauth_scopes',
             'public_key_table'  => 'oauth_public_keys',
+            'device_token_table'  => 'device_token',
         ), $config);
 
         $globalConfig = include  __DIR__ . '/../../../config/config.php';
@@ -76,7 +77,7 @@ class CustomStorage implements
     /* OAuth2\Storage\ClientCredentialsInterface */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id AND ended_date > NOW()', $this->config['client_table']));
         $stmt->execute(compact('client_id'));
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
@@ -86,7 +87,7 @@ class CustomStorage implements
 
     public function isPublicClient($client_id)
     {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id AND ended_date > NOW()', $this->config['client_table']));
         $stmt->execute(compact('client_id'));
 
         if (!$result = $stmt->fetch(\PDO::FETCH_ASSOC)) {
@@ -99,7 +100,7 @@ class CustomStorage implements
     /* OAuth2\Storage\ClientInterface */
     public function getClientDetails($client_id)
     {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id AND ended_date > NOW()', $this->config['client_table']));
         $stmt->execute(compact('client_id'));
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -220,6 +221,35 @@ class CustomStorage implements
         $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE authorization_code = :code', $this->config['code_table']));
 
         return $stmt->execute(compact('code'));
+    }
+
+    public function getDeviceToken($client_id, $user_id, $device_token)
+    {
+        $stmt = $this->db->prepare(sprintf('SELECT IFNULL(d.device_id, 0) device_id 
+            FROM %s c 
+            LEFT JOIN %s d ON c.client_id = d.client_id
+            AND d.user_id=:user_id AND d.device_token=:device_token
+            WHERE c.is_mobile = 1 AND c.ended_date > NOW() AND c.client_id=:client_id', 
+            $this->config['client_table'], $this->config['device_token_table']));
+        $stmt->execute(compact('user_id', 'device_token', 'client_id'));
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+        //for web always response true
+        if (!$row) return true;
+
+        return ((int)$row['device_id'] > 0);
+    }
+    
+    public function setDeviceToken($client_id, $user_id, $device_token)
+    {
+        //var_dump($this->getDeviceToken($client_id, $user_id, $device_token));die;
+        if (!$this->getDeviceToken($client_id, $user_id, $device_token)) {
+            $stmt = $this->db->prepare(sprintf('INSERT INTO %s (client_id, user_id, device_token) VALUES 
+                (:client_id, :user_id, :device_token)', $this->config['device_token_table']));
+            return $stmt->execute(compact('client_id', 'user_id', 'device_token'));
+        }
+
+        return true;
     }
 
     /* OAuth2\Storage\UserCredentialsInterface */

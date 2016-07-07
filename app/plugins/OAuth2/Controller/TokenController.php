@@ -212,6 +212,9 @@ class TokenController implements TokenControllerInterface
 
         $user = $grantType->getUser();
         $response->addParameters(['user' => $user]);
+
+        //save device token
+        $this->clientStorage->setDeviceToken($clientId, $user['user_id'], $request->request("device_token"));
         return $grantType->createAccessToken($this->accessToken, $clientId, $grantType->getUserId(), $requestedScope);
     }
 
