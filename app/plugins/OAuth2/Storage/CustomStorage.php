@@ -240,13 +240,20 @@ class CustomStorage implements
         return ((int)$row['device_id'] > 0);
     }
     
-    public function setDeviceToken($client_id, $user_id, $device_token)
+    public function setDeviceToken($client_id, $user_id, $device_token, $type = 'login')
     {
-        //var_dump($this->getDeviceToken($client_id, $user_id, $device_token));die;
         if (!$this->getDeviceToken($client_id, $user_id, $device_token)) {
             $stmt = $this->db->prepare(sprintf('INSERT INTO %s (client_id, user_id, device_token) VALUES 
                 (:client_id, :user_id, :device_token)', $this->config['device_token_table']));
             return $stmt->execute(compact('client_id', 'user_id', 'device_token'));
+        } else{
+            if ($type === 'delete') {
+                //delete
+                $stmt = $this->db->prepare(sprintf('UPDATE %s SET ended_date = NOW() 
+                    WHERE client_id = :client_id AND user_id = :user_id AND device_token = :device_token', 
+                    $this->config['device_token_table']));
+                return $stmt->execute(compact('client_id', 'user_id', 'device_token'));
+            }
         }
 
         return true;

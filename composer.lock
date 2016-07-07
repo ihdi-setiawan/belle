@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1d508d31c9a29ab35a60115c4a030586",
-    "content-hash": "10602c2a490f2ad39e6d115850fac8eb",
+    "hash": "a81a7150ad71e0d3ae10c71e546c28fe",
+    "content-hash": "2555cd65a39f17bf529851adc1cc95fb",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1124,6 +1124,51 @@
             "time": "2015-06-21 13:59:46"
         },
         {
+            "name": "sidroberts/phalcon-authmiddleware",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:SidRoberts/phalcon-authmiddleware.git",
+                "reference": "e3831e0f792e4399a7d22bfd45b44d20cc566c1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SidRoberts/phalcon-authmiddleware/zipball/e3831e0f792e4399a7d22bfd45b44d20cc566c1d",
+                "reference": "e3831e0f792e4399a7d22bfd45b44d20cc566c1d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-phalcon": ">= 2.0.0",
+                "php": ">= 5.5"
+            },
+            "require-dev": {
+                "codeception/codeception": "2.1.2",
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/php-code-coverage": "~2.0",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sid\\Phalcon\\AuthMiddleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sid Roberts",
+                    "email": "Sid@SidRoberts.co.uk",
+                    "homepage": "http://www.SidRoberts.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Auth Middleware component for Phalcon.",
+            "time": "2016-02-24 15:31:09"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.2",
             "source": {
@@ -1279,7 +1324,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "predis/predis": 20
+        "predis/predis": 20,
+        "sidroberts/phalcon-authmiddleware": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -213,8 +213,8 @@ class TokenController implements TokenControllerInterface
         $user = $grantType->getUser();
         $response->addParameters(['user' => $user]);
 
-        //save device token
-        $this->clientStorage->setDeviceToken($clientId, $user['user_id'], $request->request("device_token"));
+        //set device token
+        $this->clientStorage->setDeviceToken($clientId, $user['user_id'], $request->request('device_token'));
         return $grantType->createAccessToken($this->accessToken, $clientId, $grantType->getUserId(), $requestedScope);
     }
 
@@ -238,6 +238,10 @@ class TokenController implements TokenControllerInterface
     public function handleRevokeRequest(RequestInterface $request, ResponseInterface $response)
     {
         if ($this->revokeToken($request, $response)) {
+            //set device token
+            $this->clientStorage->setDeviceToken($request->request('client_id'), $request->request('user_id'), 
+                $request->request('device_token'), 'delete');
+        
             $response->setStatusCode(200);
             $response->addParameters(array('revoked' => true));
         }

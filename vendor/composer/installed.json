@@ -1313,5 +1313,52 @@
             "incubator",
             "phalcon"
         ]
+    },
+    {
+        "name": "sidroberts/phalcon-authmiddleware",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:SidRoberts/phalcon-authmiddleware.git",
+            "reference": "e3831e0f792e4399a7d22bfd45b44d20cc566c1d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/SidRoberts/phalcon-authmiddleware/zipball/e3831e0f792e4399a7d22bfd45b44d20cc566c1d",
+            "reference": "e3831e0f792e4399a7d22bfd45b44d20cc566c1d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-phalcon": ">= 2.0.0",
+            "php": ">= 5.5"
+        },
+        "require-dev": {
+            "codeception/codeception": "2.1.2",
+            "codeclimate/php-test-reporter": "dev-master",
+            "phpunit/php-code-coverage": "~2.0",
+            "squizlabs/php_codesniffer": "2.*"
+        },
+        "time": "2016-02-20 12:55:33",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Sid\\Phalcon\\AuthMiddleware\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sid Roberts",
+                "email": "Sid@SidRoberts.co.uk",
+                "homepage": "http://www.SidRoberts.co.uk",
+                "role": "Developer"
+            }
+        ],
+        "description": "Auth Middleware component for Phalcon."
     }
 ]

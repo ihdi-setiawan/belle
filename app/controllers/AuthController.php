@@ -7,11 +7,11 @@ class AuthController extends BaseController
 
 	public function loginAction()
 	{
+		$msg = 'Email and password required';
+		
 		$result = $this->oauth2->handleTokenRequest($this->requestOAuth);
 		if ($result) {
 			if ($result->getStatusCode() === 200) {
-				//save device token
-				
 				$this->response->setJsonContent([
 					'status' => 'OK',
 					'message' => 'Login success',
@@ -22,7 +22,7 @@ class AuthController extends BaseController
 					]
 				]);
 			} else {
-				$msg = $result->getStatusText();
+				$msg = $result->getStatusText();	
 				if ($result->getStatusCode() === 401) {
 					$msg = $result->getParameter('error_description');
 				}
@@ -30,7 +30,7 @@ class AuthController extends BaseController
 				$this->response->setJsonContent([
 					'status' => 'NOK',
 					'message' => $msg,
-					'data' => []
+					'data' => new \stdClass()
 				]);
 			}
 		}
@@ -47,5 +47,39 @@ class AuthController extends BaseController
     {
     	$email = $this->request->get('email', 'email', '');
     	
+    }
+
+    /**
+     * @AuthMiddleware("App\Libraries\Middleware")
+     */
+    public function logoutAction()
+    {
+    	$tokenInfo = $this->registry[$this->token];
+    	$this->requestOAuth->request['client_id'] = $tokenInfo['client_id'];
+    	$this->requestOAuth->request['user_id'] = $tokenInfo['user_id'];
+
+    	$this->requestOAuth->request['token'] = $this->token;
+    	$result = $this->oauth2->handleRevokeRequest($this->requestOAuth);
+    	
+    	if ($result->getStatusCode() === 200) {
+			$this->response->setJsonContent([
+				'status' => 'OK',
+				'message' => 'Logout success',
+				'data' => new \stdClass()
+			]);
+		} else {
+			$msg = $result->getStatusText();
+			if ($result->getStatusCode() === 401) {
+				$msg = $result->getParameter('error_description');
+			}
+
+			$this->response->setJsonContent([
+				'status' => 'NOK',
+				'message' => $msg,
+				'data' => new \stdClass()
+			]);
+		}
+
+		$this->response->send();
     }
 }

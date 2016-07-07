@@ -2,6 +2,7 @@
 	"require": {
         "predis/predis": "dev-master",
 		"phpunit/phpunit": "~4.6",
-		"phalcon/incubator": "^2.0"
+		"phalcon/incubator": "^2.0",
+		"sidroberts/phalcon-authmiddleware": "dev-master"
     }
 }

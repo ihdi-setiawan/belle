@@ -22,6 +22,7 @@ class ComposerStaticInitb7ae6ab8feebc3e3910b196569a8e9c4
         'S' => 
         array (
             'Symfony\\Component\\Yaml\\' => 23,
+            'Sid\\Phalcon\\AuthMiddleware\\' => 27,
         ),
         'P' => 
         array (
@@ -48,6 +49,10 @@ class ComposerStaticInitb7ae6ab8feebc3e3910b196569a8e9c4
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Sid\\Phalcon\\AuthMiddleware\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sidroberts/phalcon-authmiddleware/src',
         ),
         'Predis\\' => 
         array (

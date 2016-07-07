@@ -80,7 +80,8 @@ $di->setShared('oauth2', function() use ($config) {
     ]);
 
     $oauthConfig = [
-	    'access_lifetime' => $config['oauth']['access_lifetime']
+	    'access_lifetime' => $config['oauth']['access_lifetime'],
+		'token_param_name' => 'token'
 	];
 
 	$server = new \OAuth2\Server($storage, $oauthConfig);
@@ -95,6 +96,9 @@ $di->setShared('requestOAuth', function () {
     return \OAuth2\Request::createFromGlobals();
 });
 
+$di->setShared('registry', function() {
+    return new \Phalcon\Registry();
+});
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
@@ -112,8 +116,13 @@ $di->set('session', function() {
 	return $session;
 });
 
-$di->set('dispatcher', function(){
+$di->set('dispatcher', function() use($di) {
 	$dispatcher = new Dispatcher();
+	$eventsManager = $di->getShared("eventsManager");
+    $eventsManager->attach("dispatch:beforeExecuteRoute", new \Sid\Phalcon\AuthMiddleware\Event());
+
+    $dispatcher->setEventsManager($eventsManager);
+
 	$dispatcher->setDefaultNamespace('App\Controllers');
 	return $dispatcher;
 });
