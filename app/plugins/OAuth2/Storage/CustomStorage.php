@@ -63,6 +63,7 @@ class CustomStorage implements
             'refresh_token_table' => 'oauth_refresh_tokens',
             'code_table' => 'oauth_authorization_codes',
             'user_table' => 'user',
+            'user_attribute_table' => 'user_attribute',
             'jwt_table'  => 'oauth_jwt',
             'jti_table'  => 'oauth_jti',
             'scope_table'  => 'oauth_scopes',
@@ -248,7 +249,6 @@ class CustomStorage implements
             return $stmt->execute(compact('client_id', 'user_id', 'device_token'));
         } else{
             if ($type === 'delete') {
-                //delete
                 $stmt = $this->db->prepare(sprintf('UPDATE %s SET ended_date = NOW() 
                     WHERE client_id = :client_id AND user_id = :user_id AND device_token = :device_token', 
                     $this->config['device_token_table']));
@@ -361,7 +361,14 @@ class CustomStorage implements
 
     public function getUser($email)
     {
-        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where email=:email AND ended_date > NOW()', $this->config['user_table']));
+        $stmt = $this->db->prepare($sql = sprintf(
+            'SELECT u.user_id, u.user_name, u.email, u.password, u.first_name, u.last_name, u.contact_no,
+                DATE_FORMAT(a.birthdate, "%%d-%%m-%%Y") birthdate,
+                IFNUll(a.weight, 0) weight, IFNULL(a.height,0) height, a.push_notification 
+             from %s u JOIN %s a ON u.user_id = a.user_id 
+             where u.email=:email AND u.ended_date > NOW()', 
+             $this->config['user_table'],
+             $this->config['user_attribute_table']));
         $stmt->execute(array('email' => $email));
 
         if (!$userInfo = $stmt->fetch(\PDO::FETCH_ASSOC)) {

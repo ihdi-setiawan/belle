@@ -9,7 +9,11 @@ class AuthController extends BaseController
 	public function loginAction()
 	{
 		$msg = 'Email and password required';
-		
+		$deviceToken = isset($this->requestOAuth->request['device_token']) ? $this->requestOAuth->request['device_token'] : '';
+    	if (empty($deviceToken)) {
+    		$this->requestOAuth->request['device_token'] = $deviceToken;
+    	}
+
 		$result = $this->oauth2->handleTokenRequest($this->requestOAuth);
 		if ($result) {
 			if ($result->getStatusCode() === 200) {
@@ -41,7 +45,8 @@ class AuthController extends BaseController
 
 	public function registerAction()
 	{
-		
+		$param['old_password'] = $this->filter->sanitize($this->requestOAuth->request['old_password'], ['trim', 'striptags'], '');
+    	$param['new_password'] = $this->filter->sanitize($this->requestOAuth->request['new_password'], ['trim', 'striptags'], '');	
 	}
 
     public function forgotAction()
@@ -78,6 +83,10 @@ class AuthController extends BaseController
     	$this->requestOAuth->request['user_id'] = $tokenInfo['user_id'];
 
     	$this->requestOAuth->request['token'] = $this->token;
+    	$deviceToken = isset($this->requestOAuth->request['device_token']) ? $this->requestOAuth->request['device_token'] : '';
+    	if (empty($deviceToken)) {
+    		$this->requestOAuth->request['device_token'] = $deviceToken;
+    	}
     	$result = $this->oauth2->handleRevokeRequest($this->requestOAuth);
     	
     	if ($result->getStatusCode() === 200) {
@@ -108,10 +117,12 @@ class AuthController extends BaseController
 	public function changeAction()
     {
     	$tokenInfo = $this->registry[$this->token];
-
     	$param['user_id'] = $tokenInfo['user_id'];
-    	$param['old_password'] = $this->filter->sanitize($this->requestOAuth->request['old_password'], ['trim', 'striptags'], '');
-    	$param['new_password'] = $this->filter->sanitize($this->requestOAuth->request['new_password'], ['trim', 'striptags'], '');
+
+    	$oldPassword = isset($this->requestOAuth->request['old_password']) ? $this->requestOAuth->request['old_password'] : '';
+    	$newPassword = isset($this->requestOAuth->request['new_password']) ? $this->requestOAuth->request['new_password'] : '';
+    	$param['old_password'] = $this->filter->sanitize($oldPassword, ['trim', 'striptags', 'alphanum'], '');
+    	$param['new_password'] = $this->filter->sanitize($newPassword, ['trim', 'striptags', 'alphanum'], '');
     	
 		$user = new User();
 		$row = $user->changePassword($param);

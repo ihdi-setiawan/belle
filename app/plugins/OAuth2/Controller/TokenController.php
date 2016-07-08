@@ -52,7 +52,11 @@ class TokenController implements TokenControllerInterface
                 'email' => $user['email'],
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
-                'contact_no' => $user['contact_no']
+                'contact_no' => $user['contact_no'],
+                'birthdate' => $user['birthdate'],
+                'weight' => $user['weight'],
+                'height' => $user['height'],
+                'push_notification' => $user['push_notification']
             ];
             
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
@@ -213,8 +217,17 @@ class TokenController implements TokenControllerInterface
         $user = $grantType->getUser();
         $response->addParameters(['user' => $user]);
 
-        //set device token
-        $this->clientStorage->setDeviceToken($clientId, $user['user_id'], $request->request('device_token'));
+        $client = $this->clientStorage->getClientDetails($clientId);
+        if ((int)$client['is_mobile'] === 1) {
+            
+            if ($request->request('device_token') === '') {
+                $response->setError(401, 'invalid_scope', 'Device token harus diisi');
+                return null;
+            }
+            //set device token
+            $this->clientStorage->setDeviceToken($clientId, $user['user_id'], $request->request('device_token'));
+        }
+
         return $grantType->createAccessToken($this->accessToken, $clientId, $grantType->getUserId(), $requestedScope);
     }
 
@@ -237,6 +250,15 @@ class TokenController implements TokenControllerInterface
 
     public function handleRevokeRequest(RequestInterface $request, ResponseInterface $response)
     {
+        $client = $this->clientStorage->getClientDetails($request->request('client_id'));
+        if ((int)$client['is_mobile'] === 1) {
+            
+            if ($request->request('device_token') === '') {
+                $response->setError(401, 'invalid_scope', 'Device token harus diisi');
+                return null;
+            }
+        }
+
         if ($this->revokeToken($request, $response)) {
             //set device token
             $this->clientStorage->setDeviceToken($request->request('client_id'), $request->request('user_id'), 
