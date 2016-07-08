@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+
 class AuthController extends BaseController
 {
-
 	public function loginAction()
 	{
 		$msg = 'Email and password required';
@@ -45,12 +46,30 @@ class AuthController extends BaseController
 
     public function forgotAction()
     {
-    	$email = $this->request->get('email', 'email', '');
-    	
+    	$email = $this->request->get('email', ['email', 'trim'], '');
+		
+		$user = new User();
+		$row = $user->forgotPassword($email);
+		$this->response->setJsonContent([
+			'status' => $row[0],
+			'message' => $row[1],
+			'data' => new \stdClass()
+		]);
+		
+		if ($row[0] === 'OK') {
+			$this->utility->sendMail(
+				$email, 
+				'Reset Password', 
+				'forgot', 
+				['password' => $row[2]]
+			);
+		}
+
+		$this->response->send();
     }
 
     /**
-     * @AuthMiddleware("App\Libraries\Middleware")
+     * @AuthMiddleware("App\Library\Middleware")
      */
     public function logoutAction()
     {
@@ -79,6 +98,29 @@ class AuthController extends BaseController
 				'data' => new \stdClass()
 			]);
 		}
+
+		$this->response->send();
+    }
+
+    /**
+     * @AuthMiddleware("App\Library\Middleware")
+     */
+	public function changeAction()
+    {
+    	$tokenInfo = $this->registry[$this->token];
+
+    	$param['user_id'] = $tokenInfo['user_id'];
+    	$param['old_password'] = $this->filter->sanitize($this->requestOAuth->request['old_password'], ['trim', 'striptags'], '');
+    	$param['new_password'] = $this->filter->sanitize($this->requestOAuth->request['new_password'], ['trim', 'striptags'], '');
+    	
+		$user = new User();
+		$row = $user->changePassword($param);
+		
+		$this->response->setJsonContent([
+			'status' => $row[0],
+			'message' => $row[1],
+			'data' => new \stdClass()
+		]);
 
 		$this->response->send();
     }

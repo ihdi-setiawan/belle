@@ -62,7 +62,8 @@ $di->set('db', function() use ($config) {
 		'host' => $config->database->host,
 		'username' => $config->database->username,
 		'password' => $config->database->password,
-		'dbname' => $config->database->dbname
+		'dbname' => $config->database->dbname,
+		'port' => $config->database->port,
 	));
 });
 
@@ -99,6 +100,12 @@ $di->setShared('requestOAuth', function () {
 $di->setShared('registry', function() {
     return new \Phalcon\Registry();
 });
+
+$di->setShared('utility', function(){
+    return  new \App\Library\Utility();
+});
+
+$di->setShared('config', $config);
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise

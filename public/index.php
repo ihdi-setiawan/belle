@@ -37,7 +37,7 @@ try {
 		$fileName = $config->application['logDir'].'/db_api_error-'.date('Y-m-d').'.log';
 		file_put_contents($fileName, $message.PHP_EOL , FILE_APPEND);
 		header('Content-Type: application/json');
-		die(json_encode(array('code' => '204', 'message' => 'Internal Server error')));
+		die(json_encode(array('status' => 'NOK', 'message' => 'Internal Server error', 'data' => new stdClass())));
 	}
 } catch (\Exception $e) {
 	if ($config->application['debug']) {
@@ -48,6 +48,6 @@ try {
 		$fileName = $config->application['logDir'].'/global_api_error-'.date('Y-m-d').'.log';
 		file_put_contents($fileName, $message.PHP_EOL , FILE_APPEND);
 		header('Content-Type: application/json');
-		die(json_encode(array('code' => '204', 'message' => 'Internal error')));
+		die(json_encode(array('status' => 'NOK', 'message' => 'Internal error', 'data' => new \stdClass())));
 	}
 }

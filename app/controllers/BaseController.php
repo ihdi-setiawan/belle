@@ -2,14 +2,18 @@
 
 namespace App\Controllers;
 
-use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Controller,
+	Phalcon\Filter;
 
 class BaseController extends Controller
 {
-	public $token;
+	protected $token;
+	protected $filter;
 
 	public function initialize()
 	{
+		$this->filter = new Filter();
+		
 		$this->token = $this->request->get('token', ['trim', 'alphanum'], '');
 		$this->response->setContentType('application/json', 'UTF-8');
 		$this->response->setStatusCode(200, 'OK');

@@ -263,7 +263,7 @@ class CustomStorage implements
     public function checkUserCredentials($username, $password)
     {
         if ($user = $this->getUser($username)) {
-            return $this->checkPassword($user, $password);
+            return $this->checkPassword($password, $user['password']);
         }
 
         return false;
@@ -345,16 +345,16 @@ class CustomStorage implements
     }
 
     // plaintext passwords are bad!  Override this for your application
-    protected function checkPassword($user, $password)
+    protected function checkPassword($inputPassword, $password)
     {
-        return password_verify($password, $user['password']);
+        return password_verify($inputPassword, $password);
     }
 
     // use a secure hashing algorithm when storing passwords. Override this for your application
     protected function hashPassword($password)
     {
         $options = [
-            'cost' => $this->config['user']['cost']
+            'cost' => $this->config['oauth']['cost']
         ];
         return password_hash($password, PASSWORD_DEFAULT, $options);
     }

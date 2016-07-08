@@ -33,13 +33,13 @@ class UserCredentials implements GrantTypeInterface
     public function validateRequest(RequestInterface $request, ResponseInterface $response)
     {
         if (!$request->request("password") || !$request->request("email")) {
-            $response->setError(401, 'invalid_request', 'Email and password required');
+            $response->setError(401, 'invalid_request', 'Email dan password harus diisi');
 
             return null;
         }
 
         if (!$this->storage->checkUserCredentials($request->request("email"), $request->request("password"))) {
-            $response->setError(401, 'invalid_grant', 'Invalid email and password combination');
+            $response->setError(401, 'invalid_grant', 'Kombinasi Email dan password tidak valid');
 
             return null;
         }

@@ -2,7 +2,13 @@
 
 $router = new Phalcon\Mvc\Router(false);
 
-$router->addPost('/auth/(login|register|forgot|logout)', array(
+$router->addPost('/auth/password/(forgot|change)', array(
+	'namespace' => 'App\Controllers',
+	'controller' => 'auth',
+	'action' => 1,
+));
+
+$router->addPost('/auth/(login|register|logout)', array(
 	'namespace' => 'App\Controllers',
 	'controller' => 'auth',
 	'action' => 1,

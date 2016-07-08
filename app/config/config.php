@@ -23,4 +23,15 @@ return new \Phalcon\Config(array(
 		'cost' => 10,
 		'access_lifetime' => 31536000,
 	),
+	'mail' => array(
+		'fromName' => '',
+		'fromEmail' => '',
+		'smtp' => array(	
+			'username' => '',
+			'password' => '',
+			'server' => '',
+			'port' => '',
+			'security' => '',
+		)
+	),
 ));

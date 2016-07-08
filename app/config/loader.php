@@ -9,7 +9,7 @@ $loader->registerNamespaces(
         array(
         	'OAuth2' => __DIR__.'/../plugins/OAuth2',
             'App\Controllers' => __DIR__ . '/../controllers/',
-            'App\Libraries' => __DIR__ . '/../libraries/',
+            'App\Library' => __DIR__ . '/../library/',
             'App\Models' => __DIR__ . '/../models/',
             'App\Controllers\Admin' => __DIR__ . '/../controllers/admin'
         )

@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Libraries;
+namespace App\Library;
 
 class Middleware extends \Phalcon\Mvc\User\Plugin implements \Sid\Phalcon\AuthMiddleware\MiddlewareInterface
 {
-    public $isLoggedIn = false;
-    public $clientId = null;
-    public $userId = null;
-    public $expires = null;
-
 	/**
      * @return boolean
      */
