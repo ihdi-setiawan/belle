@@ -362,7 +362,7 @@ class CustomStorage implements
     public function getUser($email)
     {
         $stmt = $this->db->prepare($sql = sprintf(
-            'SELECT u.user_id, u.user_name, u.email, u.password, u.first_name, u.last_name, u.contact_no,
+            'SELECT u.user_id, u.user_name, u.email, u.password, u.first_name, u.last_name, IFNULL(u.contact_no, "") contact_no,
                 DATE_FORMAT(a.birthdate, "%%d-%%m-%%Y") birthdate,
                 IFNUll(a.weight, 0) weight, IFNULL(a.height,0) height, a.push_notification 
              from %s u JOIN %s a ON u.user_id = a.user_id 

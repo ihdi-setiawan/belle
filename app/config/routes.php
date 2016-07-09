@@ -14,10 +14,10 @@ $router->addPost('/auth/(login|register|logout)', array(
 	'action' => 1,
 ));
 
-$router->add('/:controller', array(
+/*$router->add('/:controller', array(
 	'namespace' => 'App\Controllers',
 	'controller' => 1
-));
+));*/
 
 $router->add('/admin/:controller/:action/:params', array(
 	'namespace' => 'App\Controllers\Admin',

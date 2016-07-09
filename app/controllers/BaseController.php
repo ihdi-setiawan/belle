@@ -22,15 +22,18 @@ class BaseController extends Controller
 
 	public function notFound404Action()
 	{
+		$this->response->setHeader("Content-Type", "text/plain");
+		$this->response->setRawHeader("HTTP/1.1 404 Not Found");
 		$this->response->setStatusCode(404, 'Not Found');
-		$this->view->setMainView('error/index');
+		$this->response->setContent('Page Not found');
+		$this->response->send();
 	}
 
 	public function showErrorAction()
 	{
 		$msg = $this->dispatcher->getParams('msg');
 		$this->response->setJsonContent([
-			'status' => 'NOK',
+			'code' => 401,
 			'message' => $msg['msg'],
 			'data' => new \stdClass()
 		]);

@@ -54,9 +54,9 @@ class TokenController implements TokenControllerInterface
                 'last_name' => $user['last_name'],
                 'contact_no' => $user['contact_no'],
                 'birthdate' => $user['birthdate'],
-                'weight' => $user['weight'],
-                'height' => $user['height'],
-                'push_notification' => $user['push_notification']
+                'weight' => (int)$user['weight'],
+                'height' => (int)$user['height'],
+                'push_notification' => (int)$user['push_notification']
             ];
             
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
