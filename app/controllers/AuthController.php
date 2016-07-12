@@ -56,7 +56,6 @@ class AuthController extends BaseController
 		$firstName = isset($this->requestOAuth->request['first_name']) ? $this->requestOAuth->request['first_name'] : '';
 		$lastName = isset($this->requestOAuth->request['last_name']) ? $this->requestOAuth->request['last_name'] : '';
 		$email = isset($this->requestOAuth->request['email']) ? $this->requestOAuth->request['email'] : '';
-		$username = isset($this->requestOAuth->request['username']) ? $this->requestOAuth->request['username'] : '';
 		
 		$birthdate = '';
 		if (isset($this->requestOAuth->request['birthdate']) && !empty($this->requestOAuth->request['birthdate'])) {
@@ -77,7 +76,6 @@ class AuthController extends BaseController
 		$param['first_name'] = $this->filter->sanitize(strtolower($firstName), ['trim', 'striptags'], '');
     	$param['last_name'] = $this->filter->sanitize(strtolower($lastName), ['trim', 'striptags'], '');	
 		$param['email'] = $this->filter->sanitize($email, ['trim', 'email'], '');
-		$param['username'] = $this->filter->sanitize($username, ['trim', 'striptags'], '');
 		$param['birthdate'] = $this->filter->sanitize($birthdate, ['trim', 'string', 'striptags'], '');
 		$param['password'] = $this->filter->sanitize($password, ['trim', 'alphanum'], '');
 		$param['confirm_password'] = $this->filter->sanitize($confirmPassword, ['trim', 'alphanum'], '');

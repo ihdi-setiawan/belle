@@ -8,7 +8,6 @@ use Phalcon\Validation,
 class User extends Base
 {
 	public $id;
-	public $userName;
 	public $email;
 	public $password;
 	public $firstName;
@@ -40,7 +39,6 @@ class User extends Base
     {
     	return [
     		'user_id' => 'id',
-    		'user_name' => 'userName',
     		'email' => 'email',
             'password' => 'password',
     		'first_name' => 'firstName',
@@ -252,7 +250,6 @@ class User extends Base
         } else {
             //register
             $user = new User();
-            $user->userName = $param['username'];
             $user->email = $param['email'];
             $user->password = $this->hashPassword($param['password']);
             $user->firstName = $param['first_name'];

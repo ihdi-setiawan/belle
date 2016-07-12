@@ -49,15 +49,15 @@ CREATE TABLE IF NOT EXISTS `device_token` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ended_date` datetime NOT NULL DEFAULT '3014-06-07 00:00:00',
   PRIMARY KEY (`device_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ds_bella.device_token: 3 rows
 DELETE FROM `device_token`;
 /*!40000 ALTER TABLE `device_token` DISABLE KEYS */;
 INSERT INTO `device_token` (`device_id`, `client_id`, `user_id`, `device_token`, `created_date`, `ended_date`) VALUES
-	(9, 'android', 3, '33131231', '2016-07-07 13:52:00', '3014-06-07 00:00:00'),
-	(8, 'android', 3, '2333131231', '2016-07-07 13:51:47', '3014-06-07 00:00:00'),
-	(7, 'android', 3, '233131231', '2016-07-07 13:51:18', '3014-06-07 00:00:00');
+	(13, 'android', 3, '123131231', '2016-07-07 17:03:32', '2016-07-09 00:02:37'),
+	(16, 'android', 10, '123131231', '2016-07-09 15:54:57', '3014-06-07 00:00:00'),
+	(17, 'android', 12, '123131231', '2016-07-09 15:56:58', '2016-07-12 18:31:18');
 /*!40000 ALTER TABLE `device_token` ENABLE KEYS */;
 
 
@@ -153,31 +153,33 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   PRIMARY KEY (`access_token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table ds_bella.oauth_access_tokens: 21 rows
+-- Dumping data for table ds_bella.oauth_access_tokens: 23 rows
 DELETE FROM `oauth_access_tokens`;
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
-	('c4a281a729dd59fcad10981fcebfab97c8b1b05f', 'android', 3, '2017-07-07 13:07:46', NULL),
-	('5f9ed9a73376202251afedcc0f789ca4abeb989d', 'android', 3, '2017-07-07 13:01:01', NULL),
-	('405b6ee515cd62fadb7f3f1b060d9d687b7a4898', 'android', 3, '2017-07-07 12:39:00', NULL),
-	('3672c191d064191859b02de4dff2ac9fb8443dee', 'android', 3, '2017-07-07 13:14:51', NULL),
-	('6549d9411b999c71709ed7232feb7282cc25776d', 'android', 3, '2017-07-07 13:24:51', NULL),
-	('2a3c4ce09155f70a6b3534954f37122751c99942', 'android', 3, '2017-07-07 13:25:15', NULL),
-	('9fd865583683a9de0584c50a92647faad15101e3', 'android', 3, '2017-07-07 13:28:02', NULL),
-	('84bcf359f1d0c9734b99100944e3bac254d524b1', 'android', 3, '2017-07-07 13:28:20', NULL),
-	('319aa9fdf51ac716abcf52071dfd7461b8c50155', 'android', 3, '2017-07-07 13:29:22', NULL),
-	('2c8ade048e4e04a23c3275ae25f1d9181eb43731', 'android', 3, '2017-07-07 13:33:32', NULL),
-	('0fdc424aa9bd1297140077bc4224ce414cf0b191', 'android', 3, '2017-07-07 13:33:34', NULL),
-	('46519cda4f5c551b3c6aedb81e158da4ba2a29c4', 'android', 3, '2017-07-07 13:33:39', NULL),
-	('7d42d02e0b29fe68b8d4f7c136fbd0415bf77c11', 'android', 3, '2017-07-07 13:38:23', NULL),
-	('fadc90368aefc322de5fad7ce6b82c53813e4f6b', 'android', 3, '2017-07-07 13:38:29', NULL),
-	('c65bddd25e94bd6556f634d06d4c7b491ea20afb', 'android', 3, '2017-07-07 13:51:05', NULL),
-	('90087d11fca7a380bea1130dad495cdf0a8f44dd', 'android', 3, '2017-07-07 13:51:18', NULL),
-	('c328de1dfd92ba2d730141a43f564c560ad0d8a2', 'android', 3, '2017-07-07 13:51:27', NULL),
-	('afda59dcce4eca5fc229c0497e6f35395f2c75ab', 'android', 3, '2017-07-07 13:51:37', NULL),
-	('ab558c7e0ba1d859299750bf70035bb0f1381b3a', 'android', 3, '2017-07-07 13:51:47', NULL),
-	('7f72a7fb2662b640b9a8843cc3726d5002da4c06', 'android', 3, '2017-07-07 13:51:55', NULL),
-	('6eb5ceb95b31b009680bce5d0dd0f424b587e5ea', 'android', 3, '2017-07-07 13:52:00', NULL);
+	('5be1be0951d6b1865b64f6ce961e4fe3d66a65e8', 'android', 12, '2017-07-09 15:58:36', NULL),
+	('523de00fb20c86984df8c8f4f65e183da03f0dba', 'android', 12, '2017-07-09 15:58:24', NULL),
+	('a8c16d6fcd11efe1ad91cc5ee2aaf7adc78917c8', 'android', 12, '2017-07-09 15:57:57', NULL),
+	('82443d9a7490c57d6dfe814010ff1e0ada750aa0', 'android', 12, '2017-07-09 15:57:46', NULL),
+	('b5c10400b2b4038dfe6a3a447d8a1a3370918366', 'android', 12, '2017-07-09 15:57:36', NULL),
+	('67ac22d4a04fdf3a32e865ddf51c47a6970dc36f', 'android', 12, '2017-07-09 15:57:32', NULL),
+	('6b33f50950249ca71e0b8db1bc3f26beaff87770', 'android', 12, '2017-07-09 15:56:58', NULL),
+	('1c937af29177d327d470f9a4473b42dc8bd27fca', 'android', 10, '2017-07-09 15:54:57', NULL),
+	('908269e2ce629fa38eb6bbe6808450231aaa30b9', 'android', 3, '2017-07-09 15:10:10', NULL),
+	('60cc5dffef6c60aa3f8f4aba9618ac7fd8087b8c', 'android', 3, '2017-07-09 14:56:09', NULL),
+	('c164ccfa27930e7ee933ad70d2f0214979e7fa0d', 'android', 3, '2017-07-09 13:10:59', NULL),
+	('6d357f9af1ba253720ab4f6cf4c597bc4867b0c7', 'android', 3, '2017-07-09 00:10:19', NULL),
+	('2ba9247e259bf6184aa8088f12bc56dea8ce23fa', 'android', 3, '2017-07-08 23:52:00', NULL),
+	('379d95993d5b79d284cd1d0221f425b2525d08aa', 'android', 3, '2017-07-08 23:47:22', NULL),
+	('12e185e4c8cb6770f07a3af0b981f780c7d82618', 'android', 3, '2017-07-08 23:45:29', NULL),
+	('34c0d40c7b3eec334347815adb0a6a089ae96adb', 'android', 3, '2017-07-08 23:45:23', NULL),
+	('af07e73dbe4fda19e06d01a2bd13c586d9772649', 'android', 3, '2017-07-08 23:41:59', NULL),
+	('3205c0ac1475507cf2bb46aefe57db7b2cda0ff0', 'android', 3, '2017-07-08 23:35:23', NULL),
+	('57f2887f367e385b2c2211d3cfb353136a2b2a8d', 'android', 3, '2017-07-08 23:35:13', NULL),
+	('63c1555d239847c47a1e7b5327449f93d29e209e', 'android', 3, '2017-07-08 23:33:06', NULL),
+	('8c6f1fdbdd5e09f1056a7b4678eec3c629082a48', 'android', 3, '2017-07-08 21:59:38', NULL),
+	('9b42ab2c240d0844c56d6dc0f467a663165980b1', 'android', 3, '2017-07-08 22:02:38', NULL),
+	('a8934f57616e5201c54aaddd1affa61fe7cd6b79', 'android', 3, '2017-07-08 23:05:24', NULL);
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 
 
@@ -239,14 +241,13 @@ INSERT INTO `type` (`type_id`, `type_name`, `description`, `ended_date`, `ended_
 -- Dumping structure for table ds_bella.user
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(64) DEFAULT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(60) NOT NULL,
   `first_name` varchar(64) NOT NULL,
   `last_name` varchar(64) DEFAULT NULL,
   `contact_no` varchar(16) DEFAULT NULL,
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ended_date` datetime DEFAULT '3014-12-31 00:00:00',
+  `created_date` datetime NOT NULL,
+  `ended_date` datetime NOT NULL DEFAULT '3014-12-31 00:00:00',
   `created_by` int(11) NOT NULL DEFAULT '1',
   `ended_by` int(11) DEFAULT NULL,
   `modified_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -256,14 +257,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `user_ie2` (`created_by`),
   KEY `user_ie3` (`ended_date`),
   KEY `user_ie4` (`ended_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Tabel User';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Tabel User';
 
--- Dumping data for table ds_bella.user: ~2 rows (approximately)
+-- Dumping data for table ds_bella.user: ~3 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`user_id`, `user_name`, `email`, `password`, `first_name`, `last_name`, `contact_no`, `created_date`, `ended_date`, `created_by`, `ended_by`, `modified_date`) VALUES
-	(1, 'sapisuper', 'satria11t2@gmail.com', '8e48e79f034412463afcbaa00561e193', 'Satria Dwi', 'Putra', '081296453700', '2016-07-04 17:33:45', '3014-12-31 00:00:00', 1, NULL, '2016-07-05 23:54:15'),
-	(3, 'tesss', 'ihdi.setiawan@gmail.com', '$2y$10$wqmkuw8xEsQ/odddXMTeweahFNjqTmv.KoIlPQ40VTr5yba6G8O5W', 'Admin', 'Bella', '081296453700', '2016-07-04 17:33:45', '3014-12-31 00:00:00', 1, NULL, '2016-07-05 23:54:13');
+INSERT INTO `user` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_no`, `created_date`, `ended_date`, `created_by`, `ended_by`, `modified_date`) VALUES
+	(1, 'satria11t2@gmail.com', '8e48e79f034412463afcbaa00561e193', 'Satria Dwi', 'Putra', '081296453700', '2016-07-04 17:33:45', '3014-12-31 00:00:00', 1, NULL, '2016-07-05 23:54:15'),
+	(3, 'ihdi.setiawan@gmail.com', '$2y$10$O/srSUOYg8kOq1SmjlwQyeJwAjhkBZ7aT33CHcbo5krgfH7iTz/5O', 'Admin', 'Bella', '081296453700', '2016-07-04 17:33:45', '3014-12-31 00:00:00', 1, NULL, '2016-07-09 15:10:08'),
+	(12, 'ihdi12.setiawan@gmail.com', '$2y$10$Uab0fbmFVaQDA6z7GTMoDe7yE6RGTOkpRGFK/4ME2T39bJbBf3Kmm', 'john', 'doe', NULL, '2016-07-09 15:56:57', '3014-12-31 00:00:00', 1, NULL, '2016-07-09 15:56:57');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -271,19 +273,20 @@ INSERT INTO `user` (`user_id`, `user_name`, `email`, `password`, `first_name`, `
 CREATE TABLE IF NOT EXISTS `user_attribute` (
   `user_id` int(11) NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `age` int(3) DEFAULT NULL,
   `sex` char(1) DEFAULT NULL COMMENT 'M : Male,F : Female',
   `weight` int(3) DEFAULT NULL,
   `height` int(3) DEFAULT NULL,
   `push_notification` tinyint(2) DEFAULT '1' COMMENT '1: active, 0: inactive',
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabel attribute user';
 
 -- Dumping data for table ds_bella.user_attribute: ~1 rows (approximately)
 DELETE FROM `user_attribute`;
 /*!40000 ALTER TABLE `user_attribute` DISABLE KEYS */;
-INSERT INTO `user_attribute` (`user_id`, `birthdate`, `age`, `sex`, `weight`, `height`, `push_notification`) VALUES
-	(2, '1994-12-11', 21, 'M', 54, 173, 1);
+INSERT INTO `user_attribute` (`user_id`, `birthdate`, `sex`, `weight`, `height`, `push_notification`, `modified_date`) VALUES
+	(3, '1994-12-11', 'M', 54, 173, 1, '2016-07-09 15:12:54'),
+	(12, '1999-02-20', NULL, NULL, NULL, 1, '2016-07-09 15:56:57');
 /*!40000 ALTER TABLE `user_attribute` ENABLE KEYS */;
 
 
